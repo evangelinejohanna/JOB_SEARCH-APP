@@ -13,7 +13,7 @@ const Card = ({ data, image }) => {
     total_employee,
   } = data;
 
-  console.log(data, "data");
+  // console.log(data, "data");
   return (
     <div className="card">
       <div className="content">

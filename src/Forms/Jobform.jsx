@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
-import Form_2 from "./Form_2";
 import Modal from "../components/Modal/Modal";
 import Label from "../components/Label/Label";
+import Form_2 from "./Form_2";
 
-function Jobform({ onNext, onBack }) {
+function Jobform() {
   const [inputs, setInputs] = useState({
     company_name: "",
     industry: "",
@@ -26,6 +26,11 @@ function Jobform({ onNext, onBack }) {
   //   Jobform: false,
   //   Form_2: false,
   // });
+
+  const [opennextform, setopenNextform] = useState({
+    Jobform: false,
+    Form_2: false,
+  });
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -50,6 +55,7 @@ function Jobform({ onNext, onBack }) {
     e.preventDefault();
     console.log(inputs, "inputs");
     setSubmitValues(inputs);
+    // onNext();
 
     // const validationErrors = validateForm(inputs);
     // if (Object.keys(validationErrors).length > 0) {
@@ -58,6 +64,25 @@ function Jobform({ onNext, onBack }) {
     //   console.log(inputs);
     //   // onNext();
     // }
+  };
+
+  const openForm2 = () => {
+    setopenNextform({ Jobform: false, Form_2: true });
+  };
+
+  const closeJobForm = () => {
+    setopenNextform({ Jobform: false, Form_2: false });
+    console.log("back");
+  };
+
+  const closemodal = () => {
+    setopenNextform({ Jobform: false, Form_2: false });
+    // setInputs({
+    //   company_name: "",
+    //   industry: "",
+    //   location: "",
+    //   remote_type: "",
+    // });
   };
 
   // const validateForm = (inputs) => {
@@ -83,7 +108,7 @@ function Jobform({ onNext, onBack }) {
         <div className="input-heading">
           <h2> Create Job </h2>
         </div>
-        <form>
+        <form onSubmit={handleSubmit}>
           <div className="input-content">
             <div className="form">
               <div>
@@ -157,19 +182,20 @@ function Jobform({ onNext, onBack }) {
               </div>
             </div>
           </div>
+
+          <div className="Form-buttons">
+            <Button label="Back" type="button" onClick={closeJobForm} />
+
+            <Button label="Next" type="submit" onClick={openForm2} />
+          </div>
         </form>
-
-        <div className="Form-buttons">
-          <Button label="Back" type="button" onClick={onBack} />
-
-          <Button
-            label="Next"
-            type="submit"
-            onClick={onNext}
-            onSubmit={handleSubmit}
-          />
-        </div>
       </div>
+
+      {opennextform.Form_2 && (
+        <Modal isOpen={opennextform.Form_2} onClose={closemodal}>
+          <Form_2 inputValues={inputs} />
+        </Modal>
+      )}
 
       {/* <Modal isOpen={next} onClose={close}>
         <Form_2 />

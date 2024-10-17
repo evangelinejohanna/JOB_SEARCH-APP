@@ -4,6 +4,7 @@ import { useState } from "react";
 import Button from "../components/Button/Button";
 import Jobform from "../Forms/Jobform";
 import Modal from "../components/Modal/Modal";
+import Form_2 from "../Forms/Form_2";
 
 const Header = () => {
   const [opennextform, setopenNextform] = useState({
@@ -45,15 +46,15 @@ const Header = () => {
 
       {opennextform.Jobform && (
         <Modal isOpen={opennextform.Jobform} onClose={closemodal}>
-          <Jobform onNext={openForm2} onBack={closeJobForm} />
+          <Jobform />
         </Modal>
       )}
 
-      {opennextform.Form_2 && (
+      {/* {opennextform.Form_2 && (
         <Modal isOpen={opennextform.Form_2} onClose={closemodal}>
           <Form_2 onprevious={openJobForm} inputValues={inputs} />
         </Modal>
-      )}
+      )} */}
     </div>
   );
 };
