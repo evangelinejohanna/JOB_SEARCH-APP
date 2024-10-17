@@ -4,16 +4,8 @@ import { useState } from "react";
 import Button from "../components/Button/Button";
 import Jobform from "../Forms/Jobform";
 import Modal from "../components/Modal/Modal";
-import Form_2 from "../Forms/Form_2";
 
-const Header = ({ inputs }) => {
-  // const [inputs, setInputs] = useState({
-  //   company_name: "",
-  //   industry: "",
-  //   location: "",
-  //   remote_type: "",
-  // });
-
+const Header = () => {
   const [opennextform, setopenNextform] = useState({
     Jobform: false,
     Form_2: false,
