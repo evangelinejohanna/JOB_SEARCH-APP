@@ -12,7 +12,14 @@ function Jobform({ onNext, onBack }) {
     location: "",
     remote_type: "",
   });
-  // const[submitValues,setSubmitValues]=useState(null);
+
+  const [errors, setErrors] = useState({
+    company_name: "",
+    industry: "",
+    location: "",
+    remote_type: "",
+  });
+  const [submitValues, setSubmitValues] = useState(null);
   // const[nextform2,setNextform2]=useState(false);
   // const[nextform,setNextform]=useState(false);
   // const [opennextform, setopenNextform] = useState({
@@ -23,79 +30,145 @@ function Jobform({ onNext, onBack }) {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value, "input ");
+    console.log(value);
     setInputs((values) => ({ ...values, [name]: value }));
+
+    // if (value.trim()) {
+    //   setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
+    // }
   };
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log(inputs, "inputs");
+  //   setSubmitValues(inputs);
+
+  //   // setNextform2(!nextform2);
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(inputs, "inputs");
     setSubmitValues(inputs);
 
-    // setNextform2(!nextform2);
+    // const validationErrors = validateForm(inputs);
+    // if (Object.keys(validationErrors).length > 0) {
+    //   setErrors(validationErrors);
+    // } else {
+    //   console.log(inputs);
+    //   // onNext();
+    // }
   };
+
+  // const validateForm = (inputs) => {
+  //   const errors = {};
+  //   if (!inputs.company_name.trim()) {
+  //     errors.company_name = "Company name is required.";
+  //   }
+  //   if (!inputs.industry.trim()) {
+  //     errors.industry = "Industry is required.";
+  //   }
+  //   if (!inputs.location.trim()) {
+  //     errors.location = "Location is required.";
+  //   }
+  //   if (!inputs.remote_type.trim()) {
+  //     errors.remote_type = "Remote type is required.";
+  //   }
+  //   return errors;
+  // };
 
   return (
     <>
-      <h2> Create Job </h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <Label id="company_name" label="Enter the Company Name" />
+      <div className="input-card">
+        <div className="input-heading">
+          <h2> Create Job </h2>
         </div>
-        <div>
-          <Input
-            type="text"
-            name="company_name"
-            placeholder="Company_name"
-            value={inputs.company_name}
-            onChange={handleChange}
+        <form>
+          <div className="input-content">
+            <div className="form">
+              <div>
+                <Label id="company_name" label="Company Name" />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="company_name"
+                  placeholder="Company_name"
+                  value={inputs.company_name}
+                  onChange={handleChange}
+                  className="input-text"
+                />
+                {errors.company_name && (
+                  <p className="error">{errors.company_name}</p>
+                )}
+              </div>
+            </div>
+
+            <div className="form">
+              <div>
+                <Label id="industry" label="Industry" />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="industry"
+                  placeholder="Industry"
+                  value={inputs.industry}
+                  onChange={handleChange}
+                  className="input-text"
+                />
+                {errors.industry && <p className="error">{errors.industry}</p>}
+              </div>
+            </div>
+
+            <div className="form">
+              <div>
+                <Label id="location" label="Location" />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="location"
+                  placeholder="Location"
+                  value={inputs.location}
+                  onChange={handleChange}
+                  className="input-text"
+                />
+                {errors.location && <p className="error">{errors.location}</p>}
+              </div>
+            </div>
+
+            <div className="form">
+              <div>
+                <Label id="remote_type" label="Remote Type" />
+              </div>
+              <div>
+                <Input
+                  type="text"
+                  name="remote_type"
+                  placeholder="Remote_type"
+                  value={inputs.remote_type}
+                  onChange={handleChange}
+                  className="input-text"
+                />
+                {errors.remote_type && (
+                  <p className="error">{errors.remote_type}</p>
+                )}
+              </div>
+            </div>
+          </div>
+        </form>
+
+        <div className="Form-buttons">
+          <Button label="Back" type="button" onClick={onBack} />
+
+          <Button
+            label="Next"
+            type="submit"
+            onClick={onNext}
+            onSubmit={handleSubmit}
           />
         </div>
-
-        <div>
-          <Label id="industry" label="Enter the Industry" />
-        </div>
-        <div>
-          <Input
-            type="text"
-            name="industry"
-            placeholder="Industry"
-            value={inputs.industry}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <Label id="location" label="Enter the Location" />
-        </div>
-        <div>
-          <Input
-            type="text"
-            name="location"
-            placeholder="Location"
-            value={inputs.location}
-            onChange={handleChange}
-          />
-        </div>
-
-        <div>
-          <Label id="remote_type" label="Enter the Remote Type" />
-        </div>
-        <div>
-          <Input
-            type="text"
-            name="remote_type"
-            placeholder="Remote_type"
-            value={inputs.remote_type}
-            onChange={handleChange}
-          />
-        </div>
-      </form>
-
-      <div className="Form-buttons">
-        <Button label="Back" type="button" onClick={onBack} />
-
-        <Button label="Next" type="button" onClick={onNext} />
       </div>
 
       {/* <Modal isOpen={next} onClose={close}>

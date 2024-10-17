@@ -70,6 +70,9 @@ body {
     box-sizing: border-box;
   }
   
+  .input-card{
+    gap: 2px;
+  }
   .label-text{
     text-align: left;
     color: black;
@@ -206,4 +209,10 @@ body {
   
   .close-button:hover {
     color: #b08968; 
+  }
+
+  .form{
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
   }

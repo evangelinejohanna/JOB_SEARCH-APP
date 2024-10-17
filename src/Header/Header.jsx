@@ -6,7 +6,14 @@ import Jobform from "../Forms/Jobform";
 import Modal from "../components/Modal/Modal";
 import Form_2 from "../Forms/Form_2";
 
-const Header = () => {
+const Header = ({ inputs }) => {
+  // const [inputs, setInputs] = useState({
+  //   company_name: "",
+  //   industry: "",
+  //   location: "",
+  //   remote_type: "",
+  // });
+
   const [opennextform, setopenNextform] = useState({
     Jobform: false,
     Form_2: false,
@@ -52,7 +59,7 @@ const Header = () => {
 
       {opennextform.Form_2 && (
         <Modal isOpen={opennextform.Form_2} onClose={closemodal}>
-          <Form_2 onprevious={openJobForm} />
+          <Form_2 onprevious={openJobForm} inputValues={inputs} />
         </Modal>
       )}
     </div>

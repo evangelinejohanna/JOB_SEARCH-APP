@@ -5,7 +5,7 @@ import Jobform from "../Forms/Jobform";
 import Modal from "../components/Modal/Modal";
 import Label from "../components/Label/Label";
 
-function Form_2({ onprevious }) {
+function Form_2({ onprevious, inputValues }) {
   const [inputs2, setInputs2] = useState({
     exp_max: "",
     exp_min: "",
@@ -23,12 +23,16 @@ function Form_2({ onprevious }) {
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value, "input ");
+    console.log(value);
     setInputs2((values) => ({ ...values, [name]: value }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    console.log(props);
+    console.log({ inputs2 });
+    console.log({ inputValues });
+
     console.log(inputs2, "inputs2");
     setSubmitValues(inputs2);
 
@@ -58,9 +62,9 @@ function Form_2({ onprevious }) {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form>
         <div>
-          <Label id="exp_min" label="Enter the Minimum Experience (in yrs)" />
+          <Label id="exp_min" label="Minimum Experience (in yrs)" />
         </div>
         <div>
           <Input
@@ -69,11 +73,12 @@ function Form_2({ onprevious }) {
             placeholder="Min_experience"
             value={inputs2.exp_min}
             onChange={handleChange}
+            className="input-text"
           />
         </div>
 
         <div>
-          <Label id="exp_max" label="Enter the Maximum Experience (in yrs)" />
+          <Label id="exp_max" label="Maximum Experience (in yrs)" />
         </div>
         <div>
           <Input
@@ -82,11 +87,12 @@ function Form_2({ onprevious }) {
             placeholder="Max_experience"
             value={inputs2.exp_max}
             onChange={handleChange}
+            className="input-text"
           />
         </div>
 
         <div>
-          <Label id="sal_min" label="Enter the Minimum Salary (in LPA)" />
+          <Label id="sal_min" label="Minimum Salary (in LPA)" />
         </div>
         <div>
           <Input
@@ -95,11 +101,12 @@ function Form_2({ onprevious }) {
             placeholder="Min_salary"
             value={inputs2.sal_min}
             onChange={handleChange}
+            className="input-text"
           />
         </div>
 
         <div>
-          <Label id="sal_max" label="Enter the Maximum Salary (in LPA)" />
+          <Label id="sal_max" label="Maximum Salary (in LPA)" />
         </div>
         <div>
           <Input
@@ -108,11 +115,12 @@ function Form_2({ onprevious }) {
             placeholder="Max_salary"
             value={inputs2.sal_max}
             onChange={handleChange}
+            className="input-text"
           />
         </div>
 
         <div>
-          <Label id="total_employee" label="Enter the Total employees" />
+          <Label id="total_employee" label="Total employees" />
         </div>
         <div>
           <Input
@@ -121,6 +129,7 @@ function Form_2({ onprevious }) {
             placeholder="Total_employees"
             value={inputs2.total_employee}
             onChange={handleChange}
+            className="input-text"
           />
         </div>
       </form>
@@ -128,11 +137,25 @@ function Form_2({ onprevious }) {
       <div className="Form-buttons">
         <Button label="Previous" type="button" onClick={onprevious} />
 
-        <Button label="Submit" type="button" />
+        <Button label="Submit" type="submit" onSubmit={handleSubmit} />
       </div>
-      <Modal>
+
+      <div>
+        <p>{inputValues?.company_name}</p>
+        <p>{inputValues?.industry}</p>
+        <p>{inputValues?.location}</p>
+        <p>{inputValues?.remote_type}</p>
+        <p>{inputs2.exp_min}</p>
+        <p>{inputs2.exp_max}</p>
+        <p>{inputs2.sal_min}</p>
+        <p>{inputs2.sal_max}</p>
+        <p>{inputs2.total_employee}</p>
+        console.log({inputs2.total_employee}); console.log(
+        {inputValues?.location});
+      </div>
+      {/* <Modal>
         <Jobform />
-      </Modal>
+      </Modal> */}
     </>
   );
 }
