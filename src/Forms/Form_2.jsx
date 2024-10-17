@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
-import Jobform from "../Forms/Jobform";
-import Modal from "../components/Modal/Modal";
 import Label from "../components/Label/Label";
 
 function Form_2({ onprevious, inputValues }) {
