@@ -5,7 +5,7 @@ import Modal from "../components/Modal/Modal";
 import Label from "../components/Label/Label";
 import Form_2 from "./Form_2";
 
-function Jobform() {
+function Jobform({ closemodal, closeJobFormOpenForm2 }) {
   const [inputs, setInputs] = useState({
     company_name: "",
     industry: "",
@@ -28,7 +28,6 @@ function Jobform() {
   // });
 
   const [opennextform, setopenNextform] = useState({
-    Jobform: false,
     Form_2: false,
   });
 
@@ -55,6 +54,9 @@ function Jobform() {
     e.preventDefault();
     console.log(inputs, "inputs");
     setSubmitValues(inputs);
+    // closemodal();
+    closeJobFormOpenForm2;
+    setopenNextform({ Form_2: true });
     // onNext();
 
     // const validationErrors = validateForm(inputs);
@@ -66,24 +68,27 @@ function Jobform() {
     // }
   };
 
-  const openForm2 = () => {
-    setopenNextform({ Jobform: false, Form_2: true });
-  };
+  // const openForm2 = () => {
+  //   setopenNextform({ Jobform: false, Form_2: true });
+  // };
 
-  const closeJobForm = () => {
-    setopenNextform({ Jobform: false, Form_2: false });
-    console.log("back");
-  };
+  // const closeJobForm = () => {
+  //   setopenNextform({ Jobform: false, Form_2: false });
+  //   console.log("back");
+  // };
 
-  const closemodal = () => {
-    setopenNextform({ Jobform: false, Form_2: false });
-    // setInputs({
-    //   company_name: "",
-    //   industry: "",
-    //   location: "",
-    //   remote_type: "",
-    // });
-  };
+  // const closemodal = () => {
+  //   console.log("fff");
+
+  //   setopenNextform({ Jobform: false, Form_2: false });
+  //   // setInputs({
+  //   //   company_name: "",
+  //   //   industry: "",
+  //   //   location: "",
+  //   //   remote_type: "",
+  //   // });
+  // };
+  // console.log(opennextform, "opennext");
 
   // const validateForm = (inputs) => {
   //   const errors = {};
@@ -108,7 +113,7 @@ function Jobform() {
         <div className="input-heading">
           <h2> Create Job </h2>
         </div>
-        <form onSubmit={handleSubmit}>
+        <form>
           <div className="input-content">
             <div className="form">
               <div>
@@ -184,9 +189,16 @@ function Jobform() {
           </div>
 
           <div className="Form-buttons">
-            <Button label="Back" type="button" onClick={closeJobForm} />
+            <Button
+              label="Back"
+              type="button"
+              onClick={() => {
+                // console.log("back");
+                closemodal();
+              }}
+            />
 
-            <Button label="Next" type="submit" onClick={openForm2} />
+            <Button label="Next" type="button" onClick={handleSubmit} />
           </div>
         </form>
       </div>

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import React from "react";
 import Card from "./Card/Card";
-import image from "./assets/image.jpg";
+// import image from "./assets/image.jpg";
+import job_image from "./assets/job_image.jpg";
 import Jobform from "./Forms/Jobform";
 import Form_2 from "./Forms/Form_2";
 
@@ -46,7 +47,9 @@ const DataFetcher = () => {
         ) : error ? (
           <p>Error: {error}</p>
         ) : (
-          data.map((item) => <Card key={item.id} data={item} image={image} />)
+          data.map((item) => (
+            <Card key={item.id} data={item} job_image={job_image} />
+          ))
         )}
       </div>
       <div>

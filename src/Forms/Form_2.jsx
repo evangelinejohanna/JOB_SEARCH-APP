@@ -5,8 +5,8 @@ import Label from "../components/Label/Label";
 import Modal from "../components/Modal/Modal";
 import Jobform from "./Jobform";
 
-function Form_2(inputValues) {
-  // console.log(inputValues, "inputvalue");
+function Form_2({ inputValues }) {
+  console.log(inputValues, "inputvalue");
 
   const [inputs2, setInputs2] = useState({
     exp_max: "",
@@ -15,6 +15,8 @@ function Form_2(inputValues) {
     sal_max: "",
     total_employee: "",
   });
+
+  const [posts, setPosts] = useState([]);
 
   const [opennextform, setopenNextform] = useState({
     Jobform: false,
@@ -48,8 +50,23 @@ function Form_2(inputValues) {
     console.log(inputValues, "inputvalues");
     console.log(inputs2, "inputs2");
     // setSubmitValues(inputs2);
-    const combinedInputs = { ...inputValues, ...inputs2 };
+    const combinedInputs = { inputValues, inputs2 };
     console.log(combinedInputs, "combined");
+    // fetch('https://6703a1c1ab8a8f892730f1bf.mockapi.io/api/job/users', {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     company_name: company_name,
+    //     industry: industry,
+    //     location: location,
+    //     remote_type: remote_type,
+    //     exp_min: exp_min,
+    //     exp_max: exp_max,
+    //     sal_min: sal_min,
+    //     sal_max: sal_max,
+    //     total_employee: total_employee
+
+    //   })
+    // }
   };
 
   // const previous = () => {

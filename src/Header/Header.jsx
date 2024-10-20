@@ -21,8 +21,8 @@ const Header = () => {
     setopenNextform({ Jobform: false, Form_2: true });
   };
 
-  const closeJobForm = () => {
-    setopenNextform({ Jobform: false, Form_2: false });
+  const closeJobFormOpenForm2 = () => {
+    setopenNextform({ Jobform: false, Form_2: true });
     console.log("back");
   };
 
@@ -46,7 +46,10 @@ const Header = () => {
 
       {opennextform.Jobform && (
         <Modal isOpen={opennextform.Jobform} onClose={closemodal}>
-          <Jobform />
+          <Jobform
+            closemodal={closemodal}
+            closeJobFormOpenForm2={closeJobFormOpenForm2}
+          />
         </Modal>
       )}
 
