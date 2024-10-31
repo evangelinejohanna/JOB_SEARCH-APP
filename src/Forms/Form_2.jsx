@@ -2,11 +2,10 @@ import React, { useState } from "react";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import Label from "../components/Label/Label";
-import Modal from "../components/Modal/Modal";
-import Jobform from "./Jobform";
 
-function Form_2({ inputValues }) {
-  console.log(inputValues, "inputvalue");
+function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
+  // console.log(inputValues, "inputvalue");
+  const [data, setData] = useState([]);
 
   const [inputs2, setInputs2] = useState({
     exp_max: "",
@@ -16,79 +15,80 @@ function Form_2({ inputValues }) {
     total_employee: "",
   });
 
-  const [posts, setPosts] = useState([]);
-
-  const [opennextform, setopenNextform] = useState({
-    Jobform: false,
-    Form_2: false,
+  const [errors2, setErrors2] = useState({
+    company_name: "",
+    industry: "",
+    location: "",
+    remote_type: "",
   });
 
   const openJobForm = () => {
-    console.log("Button clicked!");
-    setopenNextform({ Jobform: true, Form_2: false });
-  };
-
-  const closemodal = (e) => {
-    setopenNextform({ Jobform: false, Form_2: false });
-    // setInputs({
-    //   company_name: "",
-    //   industry: "",
-    //   location: "",
-    //   remote_type: "",
-    // });
+    // console.log("Button clicked!");
+    openForm1();
   };
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value);
+    // console.log(value);
     setInputs2((values) => ({ ...values, [name]: value }));
+    setErrors2((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  };
+  const validate_2 = () => {
+    const validationErrors_2 = {};
+    if (!inputs2.exp_min.trim()) {
+      validationErrors_2.exp_min = "*Minimum experience is required.";
+    }
+    if (!inputs2.exp_max.trim()) {
+      validationErrors_2.exp_max = "*Maximum experience is required.";
+    }
+    if (!inputs2.sal_min.trim()) {
+      validationErrors_2.sal_min = "*Minimum salary is required.";
+    }
+    if (!inputs2.sal_max.trim()) {
+      validationErrors_2.sal_max = "*Maximum salary is required.";
+    }
+    if (!inputs2.total_employee.trim()) {
+      validationErrors_2.total_employee = "*Total employees is required.";
+    }
+
+    return validationErrors_2;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(inputValues, "inputvalues");
-    console.log(inputs2, "inputs2");
-    // setSubmitValues(inputs2);
-    const combinedInputs = { inputValues, inputs2 };
+  const handleSubmit = async () => {
+    const validationErrors_2 = validate_2();
+    setErrors2(validationErrors_2);
+
+    if (Object.keys(validationErrors_2).length > 0) {
+      return;
+    }
+
+    // console.log(inputValues, "inputvalues");
+    // console.log(inputs2, "inputs2");
+
+    const combinedInputs = { ...inputValues, ...inputs2 };
     console.log(combinedInputs, "combined");
-    // fetch('https://6703a1c1ab8a8f892730f1bf.mockapi.io/api/job/users', {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     company_name: company_name,
-    //     industry: industry,
-    //     location: location,
-    //     remote_type: remote_type,
-    //     exp_min: exp_min,
-    //     exp_max: exp_max,
-    //     sal_min: sal_min,
-    //     sal_max: sal_max,
-    //     total_employee: total_employee
 
-    //   })
-    // }
+    try {
+      const response = await fetch(
+        "https://6703a1c1ab8a8f892730f1bf.mockapi.io/api/job/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(combinedInputs),
+        }
+      );
+      const result = await response.json();
+      console.log("Submitted data:", result);
+
+      closeForm2();
+      closemodal();
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   };
-
-  // const previous = () => {
-  //   setNextform(true);
-  //   setopenNextform({ Jobform: true, Form_2: false });
-  //   setInputs({
-  //     title: "",
-  //     companyName: "",
-  //     industry: "",
-  //     location: "",
-  //     remoteType: "",
-  //   });
-  // };
-
-  // const close = () => {
-  //     setopenNextform({ Jobform: false, Form_2: false });
-  // };
-
-  // const closemodal = (e) =>{
-  //     // setNextform(false);
-  //     // setInputs({ title:"", companyName: "", industry: "", location: "", remoteType:"" });
-  // }
 
   return (
     <>
@@ -105,8 +105,9 @@ function Form_2({ inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.exp_min && <span className="error">{errors2.exp_min}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="exp_max" label="Maximum Experience (in yrs)" />
         </div>
@@ -119,8 +120,9 @@ function Form_2({ inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.exp_max && <span className="error">{errors2.exp_max}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="sal_min" label="Minimum Salary (in LPA)" />
         </div>
@@ -133,8 +135,9 @@ function Form_2({ inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.sal_min && <span className="error">{errors2.sal_min}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="sal_max" label="Maximum Salary (in LPA)" />
         </div>
@@ -147,8 +150,9 @@ function Form_2({ inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.sal_max && <span className="error">{errors2.sal_max}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="total_employee" label="Total employees" />
         </div>
@@ -161,20 +165,27 @@ function Form_2({ inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.total_employee && (
+            <span className="error">{errors2.total_employee}</span>
+          )}
         </div>
       </form>
-
+      <br></br>
       <div className="Form-buttons">
-        <Button label="Previous" type="button" onClick={openJobForm} />
+        <Button
+          label="Previous"
+          type="button"
+          onClick={openJobForm}
+          style={{ backgroundColor: "darkred" }}
+        />
 
-        <Button label="Submit" type="submit" onClick={handleSubmit} />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={handleSubmit}
+          style={{ backgroundColor: "darkgreen" }}
+        />
       </div>
-
-      {opennextform.Jobform && (
-        <Modal isOpen={opennextform.Jobform} onClose={closemodal}>
-          <Jobform />
-        </Modal>
-      )}
     </>
   );
 }

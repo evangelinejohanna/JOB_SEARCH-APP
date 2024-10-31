@@ -9,11 +9,6 @@ body {
     line-height: 1.5;
   }
   
-  /* parent::after{
-    /* background-color: #ffffff; */
-    /* opacity: 5;
-  }  */
-  
   .wrapper{
     justify-content: center;
     display: flex;
@@ -21,20 +16,23 @@ body {
     gap: 40px;
     padding: 10px;
     padding-top: 15%;
+    
   }
   
   .Form-buttons{
-    gap: 40%;
+    
+    gap: 4.5em;
     display: flex;
+    position: relative;
+    top: 30px;
   }
   
   .apply-button{
-    width: 30%;
+    height: fit-content;
     display: flex;
-    padding: 35px;
-  
+    padding: 50px;
   }
-  
+
   h1 {
     font-size: 40px;
     line-height: 1.1;
@@ -46,28 +44,36 @@ body {
     color: black;
   }
   
-  
-  
+ 
+  .error{
+    color: red;
+    float: left;
+    font-size: 12px;
+  }
+
+  .card-container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em; 
+    justify-content: center; 
+  }
   .card{
-    /* overflow: hidden; */
+    
     box-shadow: 0 2px 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    /* cursor: pointer; */
     background-color: #ffffff;
     border-radius: 10px;
-    max-width: 30%;
-    height: 30%;
-    padding: 2em;
-    /* margin-top: auto; */
+    width: 20rem;
+    height: 25rem;
+    padding: 1.5em;
   }
   
   .input-text{
     align-items: center;
     width: 100%;
     padding: 12px 20px;
-    
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -85,12 +91,6 @@ body {
   .card-btn{
     display: block;  
   }
-  /* .card-img img {
-    width: 160px;
-    height: 230px; 
-    object-fit: contain;
-    
-  } */
   
   .card-img{
     width: 20%;
@@ -98,29 +98,32 @@ body {
   
   .card-body{
     width: 80%;
-  
-  
+    text-align: left;
   }
+  
   img{
     max-width: 100%;
     height: auto;
-    display: block;
-    
   }
   
   .content{
     display: flex;
-    /* flex-direction: column; */
     gap: 2px;
     max-width: 100%;;
   }
   
-  
-  
-  
+  .card-buttons{
+    display: flex;
+    gap: 10px;
+  }
+
+  .confirm-buttons{
+    display: flex;
+    justify-content: space-around;
+  }
+
   button {
     border-radius: 8px;
-    /* border: 1px solid transparent; */
     padding: 0.6em 1.2em;
     font-size: 1em;
     font-weight: 500;
@@ -128,11 +131,9 @@ body {
     background-color: #24a0fe;
     color: #ffffff;
     cursor: pointer;
-    width: 50%;
+    width: 10rem;
     outline: 0;
     border: none;
-    
-    
   }
   
   .heading{
@@ -143,49 +144,27 @@ body {
     left: 0;
     width: 100%;
     z-index: 99;
-    height: 20%;
+    height: 8rem;
     display: inline-flex;
     gap: 20px;
-  
   }
   
-  
-  
-  /* button:hover {
-    border-color: #646cff;
-  }
-  button:focus,
-  button:focus-visible {
-    outline: 4px auto -webkit-focus-ring-color;
-  } */
-  
-  /* @media (prefers-color-scheme: light) {
-    :root {
-      color: #213547;
-      background-color: #ffffff;
-    }
-    a:hover {
-      color: #747bff;
-    }
-    button {
-      background-color: #f9f9f9;
-    }
-  } */
-  
-  /* modal */
-
   .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
+    right: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
-    /* background-color: rgba(255, 255, 255, 0.984);  */
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
+    padding-top: 20px;
     z-index: 1000;
+    overflow: hidden;
+    
   }
   
   
@@ -197,10 +176,11 @@ body {
     max-width: 100%;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); 
     position: relative;
-    height: 75%;
+    height: 90%;
+    max-height: 90vh;
+    
   }
-  
-  
+
   .close-button {
     position: absolute;
     top: 10px;
@@ -221,3 +201,102 @@ body {
     flex-direction: column;
     gap: 1px;
   }
+  
+  @media (min-width: 1250px) and (max-width:1440px){
+    .modal-content{
+      height: 90%;
+    }
+  }
+
+  @media  (min-width:1025px) and (max-width: 1240px){
+    .modal-content{
+      height: 75%;
+    }
+    .card {
+      width: 20rem; 
+      height: 25rem; 
+    }
+  } 
+  
+
+  @media (min-width: 769px) and (max-width:1024px){
+    .modal-content{
+      height: 90%;
+    }
+    .card {
+      width: 20rem; 
+      height: 25rem; 
+    }
+  }
+
+  @media(min-width: 601px) and (max-width:768px){
+    .modal-content{
+      height: 55%;
+    }
+  }
+
+  @media (min-width: 375px) and (max-width: 600px) {
+    
+    .modal-content {
+        width: 73%;
+        height: 45%; 
+    }
+    h1 {
+      font-size: 20px;
+      padding: 3px;
+    }
+
+    .card {
+      width: 90%; 
+      height: auto; 
+    }
+
+    .wrapper {
+      padding-top: 10%; 
+    }
+
+    .apply-button{
+      padding: 0px;
+      height: 60%;
+      font-size: 10px;
+      width: 30%;
+    }
+
+    .heading{
+      height: 4rem;
+    }
+  }
+
+  @media (max-width: 374px){
+    .modal-content {
+      width: 73%;
+      height: 35%; 
+  }
+  h1 {
+    font-size: 20px;
+    padding: 3px;
+  }
+
+  .card {
+    width: 90%; 
+    height: auto; 
+  }
+
+  .wrapper {
+    padding-top: 10%; 
+  }
+
+  .apply-button{
+    padding: 0px;
+    height: 60%;
+    font-size: 10px;
+    width: 30%;
+  }
+
+  .heading{
+    height: 4rem;
+  }
+
+  }
+
+   
