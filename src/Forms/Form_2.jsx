@@ -3,7 +3,10 @@ import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import Label from "../components/Label/Label";
 
-function Form_2({ onprevious, inputValues }) {
+function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
+  // console.log(inputValues, "inputvalue");
+  const [data, setData] = useState([]);
+
   const [inputs2, setInputs2] = useState({
     exp_max: "",
     exp_min: "",
@@ -11,52 +14,81 @@ function Form_2({ onprevious, inputValues }) {
     sal_max: "",
     total_employee: "",
   });
-  // const [nextform, setNextform] = useState(false);
-  // const [opennextform, setopenNextform] = useState({
-  //   Jobform: false,
-  //   Form_2: false,
-  // });
-  // const[inputs,setInputs]=useState({exp_max:" ", exp_max: "", sal_min: "", sal_max: ""});
+
+  const [errors2, setErrors2] = useState({
+    company_name: "",
+    industry: "",
+    location: "",
+    remote_type: "",
+  });
+
+  const openJobForm = () => {
+    // console.log("Button clicked!");
+    openForm1();
+  };
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value);
+    // console.log(value);
     setInputs2((values) => ({ ...values, [name]: value }));
+    setErrors2((prevErrors) => ({ ...prevErrors, [name]: "" }));
+  };
+  const validate_2 = () => {
+    const validationErrors_2 = {};
+    if (!inputs2.exp_min.trim()) {
+      validationErrors_2.exp_min = "*Minimum experience is required.";
+    }
+    if (!inputs2.exp_max.trim()) {
+      validationErrors_2.exp_max = "*Maximum experience is required.";
+    }
+    if (!inputs2.sal_min.trim()) {
+      validationErrors_2.sal_min = "*Minimum salary is required.";
+    }
+    if (!inputs2.sal_max.trim()) {
+      validationErrors_2.sal_max = "*Maximum salary is required.";
+    }
+    if (!inputs2.total_employee.trim()) {
+      validationErrors_2.total_employee = "*Total employees is required.";
+    }
+
+    return validationErrors_2;
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(props);
-    console.log({ inputs2 });
-    console.log({ inputValues });
+  const handleSubmit = async () => {
+    const validationErrors_2 = validate_2();
+    setErrors2(validationErrors_2);
 
-    console.log(inputs2, "inputs2");
-    setSubmitValues(inputs2);
+    if (Object.keys(validationErrors_2).length > 0) {
+      return;
+    }
 
-    // setNextform2(!nextform2);
+    // console.log(inputValues, "inputvalues");
+    // console.log(inputs2, "inputs2");
+
+    const combinedInputs = { ...inputValues, ...inputs2 };
+    console.log(combinedInputs, "combined");
+
+    try {
+      const response = await fetch(
+        "https://6703a1c1ab8a8f892730f1bf.mockapi.io/api/job/users",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(combinedInputs),
+        }
+      );
+      const result = await response.json();
+      console.log("Submitted data:", result);
+
+      closeForm2();
+      closemodal();
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   };
-
-  // const previous = () => {
-  //   setNextform(true);
-  //   setopenNextform({ Jobform: true, Form_2: false });
-  //   setInputs({
-  //     title: "",
-  //     companyName: "",
-  //     industry: "",
-  //     location: "",
-  //     remoteType: "",
-  //   });
-  // };
-
-  // const close = () => {
-  //     setopenNextform({ Jobform: false, Form_2: false });
-  // };
-
-  // const closemodal = (e) =>{
-  //     // setNextform(false);
-  //     // setInputs({ title:"", companyName: "", industry: "", location: "", remoteType:"" });
-  // }
 
   return (
     <>
@@ -73,8 +105,9 @@ function Form_2({ onprevious, inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.exp_min && <span className="error">{errors2.exp_min}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="exp_max" label="Maximum Experience (in yrs)" />
         </div>
@@ -87,8 +120,9 @@ function Form_2({ onprevious, inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.exp_max && <span className="error">{errors2.exp_max}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="sal_min" label="Minimum Salary (in LPA)" />
         </div>
@@ -101,8 +135,9 @@ function Form_2({ onprevious, inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.sal_min && <span className="error">{errors2.sal_min}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="sal_max" label="Maximum Salary (in LPA)" />
         </div>
@@ -115,8 +150,9 @@ function Form_2({ onprevious, inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.sal_max && <span className="error">{errors2.sal_max}</span>}
         </div>
-
+        <br></br>
         <div>
           <Label id="total_employee" label="Total employees" />
         </div>
@@ -129,31 +165,27 @@ function Form_2({ onprevious, inputValues }) {
             onChange={handleChange}
             className="input-text"
           />
+          {errors2.total_employee && (
+            <span className="error">{errors2.total_employee}</span>
+          )}
         </div>
       </form>
-
+      <br></br>
       <div className="Form-buttons">
-        <Button label="Previous" type="button" onClick={onprevious} />
+        <Button
+          label="Previous"
+          type="button"
+          onClick={openJobForm}
+          style={{ backgroundColor: "darkred" }}
+        />
 
-        <Button label="Submit" type="submit" onSubmit={handleSubmit} />
+        <Button
+          label="Submit"
+          type="submit"
+          onClick={handleSubmit}
+          style={{ backgroundColor: "darkgreen" }}
+        />
       </div>
-
-      <div>
-        <p>{inputValues?.company_name}</p>
-        <p>{inputValues?.industry}</p>
-        <p>{inputValues?.location}</p>
-        <p>{inputValues?.remote_type}</p>
-        <p>{inputs2.exp_min}</p>
-        <p>{inputs2.exp_max}</p>
-        <p>{inputs2.sal_min}</p>
-        <p>{inputs2.sal_max}</p>
-        <p>{inputs2.total_employee}</p>
-        console.log({inputs2.total_employee}); console.log(
-        {inputValues?.location});
-      </div>
-      {/* <Modal>
-        <Jobform />
-      </Modal> */}
     </>
   );
 }

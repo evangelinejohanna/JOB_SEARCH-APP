@@ -1,6 +1,7 @@
 import React from "react";
+import Button from "../components/Button/Button";
 
-const Card = ({ data, image }) => {
+const Card = ({ data, handleEdit, handleDelete, job_search }) => {
   const {
     company_name,
     industry,
@@ -13,29 +14,65 @@ const Card = ({ data, image }) => {
     total_employee,
   } = data;
 
-  console.log(data, "data");
   return (
-    <div className="card">
-      <div className="content">
-        <div className="card-img">
-          <img src={image} alt="Company Logo" />
-        </div>
-        <div className="card-body">
-          <div>
-            <p>Company name:{company_name}</p>
-            <p>Industry:{industry}</p>
-            <p>Location:{location}</p>
-            <p>Type:{remote_type}</p>
+    <div className="card-container">
+      <div className="card">
+        <div className="content">
+          <div className="card-img">
+            <img src={job_search} alt="Job Logo" />
           </div>
-          <div>
-            <p>Minimum experience:{exp_min}</p>
-            <p>Maximum experience:{exp_max}</p>
-            <p>Minimum salary:{sal_min}</p>
-            <p>Maximum salary:{sal_max}</p>
-            <p>Total employees:{total_employee}</p>
-          </div>
-          <div className="card-btn">
-            <button>Apply</button>
+
+          <div className="card-body">
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Company name:</div>
+              {company_name}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Industry:</div>
+              {industry}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Location:</div>
+              {location}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Type:</div>
+              {remote_type}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Minimum experience:</div>
+              {exp_min}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Maximum experience:</div>
+              {exp_max}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Minimum salary:</div>
+              {sal_min}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Maximum salary:</div>
+              {sal_max}
+            </p>
+            <p style={{ display: "flex" }}>
+              <div style={{ fontWeight: "bold" }}>Total employees:</div>
+              {total_employee}
+            </p>
+            <div className="card-buttons">
+              <Button
+                onClick={handleDelete}
+                label="Delete"
+                type="button"
+                style={{ backgroundColor: "darkred" }}
+              />
+              <Button
+                onClick={handleEdit}
+                label="Edit"
+                type="button"
+                style={{ backgroundColor: "darkgreen" }}
+              />
+            </div>
           </div>
         </div>
       </div>

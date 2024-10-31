@@ -1,16 +1,20 @@
 import React, { useState } from "react";
 import Button from "../components/Button/Button";
 import Input from "../components/Input/Input";
-import Form_2 from "./Form_2";
-import Modal from "../components/Modal/Modal";
 import Label from "../components/Label/Label";
 
-function Jobform({ onNext, onBack }) {
+function Jobform({
+  closemodal,
+  closeForm1,
+  openForm2,
+  setForm1Inputs,
+  form1Inputs,
+}) {
   const [inputs, setInputs] = useState({
-    company_name: "",
-    industry: "",
-    location: "",
-    remote_type: "",
+    company_name: form1Inputs?.company_name || "",
+    industry: form1Inputs?.industry || "",
+    location: form1Inputs?.location || "",
+    remote_type: form1Inputs?.remote_type || "",
   });
 
   const [errors, setErrors] = useState({
@@ -19,63 +23,47 @@ function Jobform({ onNext, onBack }) {
     location: "",
     remote_type: "",
   });
-  const [submitValues, setSubmitValues] = useState(null);
-  // const[nextform2,setNextform2]=useState(false);
-  // const[nextform,setNextform]=useState(false);
-  // const [opennextform, setopenNextform] = useState({
-  //   Jobform: false,
-  //   Form_2: false,
-  // });
 
   const handleChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(value);
+    // console.log(value);
     setInputs((values) => ({ ...values, [name]: value }));
-
-    // if (value.trim()) {
-    //   setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
-    // }
+    setErrors((prevErrors) => ({ ...prevErrors, [name]: "" }));
   };
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   console.log(inputs, "inputs");
-  //   setSubmitValues(inputs);
-
-  //   // setNextform2(!nextform2);
-  // };
+  const validate = () => {
+    const validationErrors = {};
+    if (!inputs.company_name.trim()) {
+      validationErrors.company_name = "*Company name is required.";
+    }
+    if (!inputs.industry.trim()) {
+      validationErrors.industry = "*Industry is required.";
+    }
+    if (!inputs.location.trim()) {
+      validationErrors.location = "*Location is required.";
+    }
+    if (!inputs.remote_type.trim()) {
+      validationErrors.remote_type = "*Remote type is required.";
+    }
+    return validationErrors;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(inputs, "inputs");
-    setSubmitValues(inputs);
+    const validationErrors = validate();
+    setErrors(validationErrors);
 
-    // const validationErrors = validateForm(inputs);
-    // if (Object.keys(validationErrors).length > 0) {
-    //   setErrors(validationErrors);
-    // } else {
-    //   console.log(inputs);
-    //   // onNext();
-    // }
+    if (Object.keys(validationErrors).length === 0) {
+      // console.log(inputs, "inputs");
+      setForm1Inputs(inputs);
+      closeForm1();
+      openForm2();
+      // console.log("Next button clicked");
+    } else {
+      console.log("Validation errors", validationErrors);
+    }
   };
-
-  // const validateForm = (inputs) => {
-  //   const errors = {};
-  //   if (!inputs.company_name.trim()) {
-  //     errors.company_name = "Company name is required.";
-  //   }
-  //   if (!inputs.industry.trim()) {
-  //     errors.industry = "Industry is required.";
-  //   }
-  //   if (!inputs.location.trim()) {
-  //     errors.location = "Location is required.";
-  //   }
-  //   if (!inputs.remote_type.trim()) {
-  //     errors.remote_type = "Remote type is required.";
-  //   }
-  //   return errors;
-  // };
 
   return (
     <>
@@ -99,7 +87,7 @@ function Jobform({ onNext, onBack }) {
                   className="input-text"
                 />
                 {errors.company_name && (
-                  <p className="error">{errors.company_name}</p>
+                  <span className="error">{errors.company_name}</span>
                 )}
               </div>
             </div>
@@ -117,7 +105,9 @@ function Jobform({ onNext, onBack }) {
                   onChange={handleChange}
                   className="input-text"
                 />
-                {errors.industry && <p className="error">{errors.industry}</p>}
+                {errors.industry && (
+                  <span className="error">{errors.industry}</span>
+                )}
               </div>
             </div>
 
@@ -134,7 +124,9 @@ function Jobform({ onNext, onBack }) {
                   onChange={handleChange}
                   className="input-text"
                 />
-                {errors.location && <p className="error">{errors.location}</p>}
+                {errors.location && (
+                  <span className="error">{errors.location}</span>
+                )}
               </div>
             </div>
 
@@ -152,34 +144,33 @@ function Jobform({ onNext, onBack }) {
                   className="input-text"
                 />
                 {errors.remote_type && (
-                  <p className="error">{errors.remote_type}</p>
+                  <span className="error">{errors.remote_type}</span>
                 )}
               </div>
             </div>
           </div>
+
+          <div className="Form-buttons">
+            <Button
+              label="Back"
+              type="button"
+              onClick={() => {
+                closemodal();
+                closeForm1();
+                document.body.style.overflow = "scroll";
+              }}
+              style={{ backgroundColor: "darkred" }}
+            />
+
+            <Button
+              label="Next"
+              type="button"
+              onClick={handleSubmit}
+              style={{ backgroundColor: "darkgreen" }}
+            />
+          </div>
         </form>
-
-        <div className="Form-buttons">
-          <Button label="Back" type="button" onClick={onBack} />
-
-          <Button
-            label="Next"
-            type="submit"
-            onClick={onNext}
-            onSubmit={handleSubmit}
-          />
-        </div>
       </div>
-
-      {/* <Modal isOpen={next} onClose={close}>
-        <Form_2 />
-      </Modal> */}
-
-      {/* <div>{inputs.title}</div>
-        <div>{inputs.companyName}</div>
-        <div>{inputs.industry}</div>
-        <div>{inputs.location}</div>
-        <div>{inputs.remoteType}</div> */}
     </>
   );
 }
