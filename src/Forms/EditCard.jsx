@@ -192,13 +192,13 @@ const EditCard = ({ data }) => {
                 onClick={handleSave}
                 label="Save"
                 type="button"
-                style={{ backgroundColor: "darkred" }}
+                // style={{ backgroundColor: "darkred" }}
               />
               <Button
                 onClick={onCancel}
                 label="Cancel"
                 type="button"
-                style={{ backgroundColor: "darkgreen" }}
+                // style={{ backgroundColor: "darkgreen" }}
               />
             </div>
           </div>

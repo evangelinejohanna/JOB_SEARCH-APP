@@ -1,11 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Input from "../components/Input/Input";
 import Button from "../components/Button/Button";
 import Label from "../components/Label/Label";
 
-function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
+function Form_2({ inputValues, closeForm2, openForm1, closemodal, onAddCard }) {
   // console.log(inputValues, "inputvalue");
   const [data, setData] = useState([]);
+  // const [count, setCount] = useState(0);
 
   const [inputs2, setInputs2] = useState({
     exp_max: "",
@@ -55,7 +56,15 @@ function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
     return validationErrors_2;
   };
 
-  const handleSubmit = async () => {
+  // useEffect(() => {
+  //   if (count > 0) {
+  //     // Call a function to update cards when count changes (only after initial render)
+  //     updateCards();
+  //   }
+  // }, [count, updateCards]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const validationErrors_2 = validate_2();
     setErrors2(validationErrors_2);
 
@@ -82,7 +91,7 @@ function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
       );
       const result = await response.json();
       console.log("Submitted data:", result);
-
+      onAddCard(result);
       closeForm2();
       closemodal();
     } catch (error) {
@@ -176,14 +185,14 @@ function Form_2({ inputValues, closeForm2, openForm1, closemodal }) {
           label="Previous"
           type="button"
           onClick={openJobForm}
-          style={{ backgroundColor: "darkred" }}
+          // style={{ backgroundColor: "darkred" }}
         />
 
         <Button
           label="Submit"
           type="submit"
           onClick={handleSubmit}
-          style={{ backgroundColor: "darkgreen" }}
+          // style={{ backgroundColor: "darkgreen" }}
         />
       </div>
     </>

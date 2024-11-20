@@ -159,14 +159,14 @@ function Jobform({
                 closeForm1();
                 document.body.style.overflow = "scroll";
               }}
-              style={{ backgroundColor: "darkred" }}
+              // style={{ backgroundColor: "darkred" }}
             />
 
             <Button
               label="Next"
               type="button"
               onClick={handleSubmit}
-              style={{ backgroundColor: "darkgreen" }}
+              // style={{ backgroundColor: "darkgreen" }}
             />
           </div>
         </form>

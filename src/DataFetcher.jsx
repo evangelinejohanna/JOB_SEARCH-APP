@@ -6,7 +6,7 @@ import EditCard from "./Forms/EditCard";
 import Modal from "./components/Modal/Modal";
 import Button from "./components/Button/Button";
 
-const DataFetcher = ({ handleSave, onCancel }) => {
+const DataFetcher = ({ handleSave, onCancel, onAddCard }) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -35,6 +35,13 @@ const DataFetcher = ({ handleSave, onCancel }) => {
     } finally {
     }
     setLoading(false);
+  };
+
+  const addNewCard = (newCard) => {
+    setData((prevData) => [...prevData, newCard]);
+    if (onAddCard) {
+      onAddCard(newCard);
+    }
   };
 
   const handleEdit = (item, id) => {
@@ -114,7 +121,7 @@ const DataFetcher = ({ handleSave, onCancel }) => {
         <Modal
           isOpen={confirmDeleteModalOpen}
           onClose={onCancelDelete}
-          style={{ height: "18%" }}
+          // style={{ height: "18%" }}
           className="delete"
         >
           <div>
@@ -124,13 +131,13 @@ const DataFetcher = ({ handleSave, onCancel }) => {
                 onClick={onCancelDelete}
                 label="Cancel"
                 type="button"
-                style={{ backgroundColor: "darkgreen" }}
+                // style={{ backgroundColor: "darkgreen" }}
               />
               <Button
                 onClick={confirmDelete}
                 label="Confirm"
                 type="button"
-                style={{ backgroundColor: "darkred" }}
+                // style={{ backgroundColor: "darkred" }}
               />
             </div>
           </div>

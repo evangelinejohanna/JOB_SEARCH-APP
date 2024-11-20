@@ -60,18 +60,22 @@ const Card = ({ data, handleEdit, handleDelete, job_search }) => {
               {total_employee}
             </p>
             <div className="card-buttons">
-              <Button
-                onClick={handleDelete}
-                label="Delete"
-                type="button"
-                style={{ backgroundColor: "darkred" }}
-              />
-              <Button
-                onClick={handleEdit}
-                label="Edit"
-                type="button"
-                style={{ backgroundColor: "darkgreen" }}
-              />
+              <div className="delete_button">
+                <Button
+                  onClick={handleDelete}
+                  label="Delete"
+                  type="button"
+                  style={{ backgroundColor: "darkred" }}
+                />
+              </div>
+              <div className="edit_button">
+                <Button
+                  onClick={handleEdit}
+                  label="Edit"
+                  type="button"
+                  style={{ backgroundColor: "darkgreen" }}
+                />
+              </div>
             </div>
           </div>
         </div>

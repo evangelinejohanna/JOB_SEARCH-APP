@@ -18,7 +18,7 @@ const Header = ({ openForm1 }) => {
         <Button
           type="button"
           onClick={openJobForm}
-          style={{ backgroundColor: "darkgoldenrod", color: "white" }}
+          style={{ backgroundColor: "white", color: "black" }}
         >
           Apply Card
         </Button>

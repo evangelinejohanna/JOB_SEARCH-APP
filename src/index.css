@@ -30,11 +30,11 @@ body {
   .apply-button{
     height: fit-content;
     display: flex;
-    padding: 50px;
+    padding: 20px;
   }
 
   h1 {
-    font-size: 40px;
+    font-size: 2rem;
     line-height: 1.1;
     padding: 25px;
     width: 100%;
@@ -131,10 +131,12 @@ body {
     background-color: #24a0fe;
     color: #ffffff;
     cursor: pointer;
-    width: 10rem;
+    width: 6rem;
     outline: 0;
     border: none;
   }
+
+  
   
   .heading{
     background-color: black;
@@ -144,31 +146,47 @@ body {
     left: 0;
     width: 100%;
     z-index: 99;
-    height: 8rem;
+    height: 6rem;
     display: inline-flex;
     gap: 20px;
+  }
+
+  .modal-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+    width: 90%; /* Responsive width */
+    max-width: 500px; /* Limit maximum width */
+    z-index: 1000;
   }
   
   .modal-overlay {
     position: fixed;
     top: 0;
     left: 0;
-    right: 0;
-    bottom: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 20px;
     z-index: 1000;
-    overflow: hidden;
-    
+  }
+  @media (min-width: 768px) {
+    .modal-container {
+      width: 80%; /* Adjust for medium screens */
+    }
   }
   
+  @media (min-width: 1024px) {
+    .modal-container {
+      width: 50%; /* Adjust for large screens */
+    }
+  }
   
-  .modal-content {
+  /* .modal-content {
     background-color: #ffffff; 
     padding: 20px;
     border-radius: 12px;
@@ -179,7 +197,7 @@ body {
     height: 90%;
     max-height: 90vh;
     
-  }
+  } */
 
   .close-button {
     position: absolute;
@@ -201,102 +219,65 @@ body {
     flex-direction: column;
     gap: 1px;
   }
-  
-  @media (min-width: 1250px) and (max-width:1440px){
-    .modal-content{
-      height: 90%;
-    }
-  }
 
-  @media  (min-width:1025px) and (max-width: 1240px){
-    .modal-content{
-      height: 75%;
-    }
-    .card {
-      width: 20rem; 
-      height: 25rem; 
-    }
-  } 
-  
-
-  @media (min-width: 769px) and (max-width:1024px){
-    .modal-content{
-      height: 90%;
-    }
-    .card {
-      width: 20rem; 
-      height: 25rem; 
-    }
-  }
-
-  @media(min-width: 601px) and (max-width:768px){
-    .modal-content{
-      height: 55%;
-    }
-  }
-
-  @media (min-width: 375px) and (max-width: 600px) {
-    
-    .modal-content {
-        width: 73%;
-        height: 45%; 
-    }
-    h1 {
-      font-size: 20px;
-      padding: 3px;
-    }
-
-    .card {
-      width: 90%; 
-      height: auto; 
-    }
-
-    .wrapper {
-      padding-top: 10%; 
-    }
-
-    .apply-button{
-      padding: 0px;
-      height: 60%;
-      font-size: 10px;
-      width: 30%;
-    }
-
-    .heading{
-      height: 4rem;
-    }
-  }
-
-  @media (max-width: 374px){
-    .modal-content {
-      width: 73%;
-      height: 35%; 
-  }
-  h1 {
-    font-size: 20px;
-    padding: 3px;
+  /* For small devices like phones (max width 600px) */
+@media (max-width: 600px) {
+  .wrapper {
+    padding-top: 10%; /* Reduce padding for smaller screens */
+    gap: 20px;
   }
 
   .card {
-    width: 90%; 
-    height: auto; 
+    width: 90%; /* Full width for better readability */
+    height: auto;
+    padding: 1em;
   }
 
+  
+
+  button {
+    width: 100%; /* Full width buttons */
+    font-size: 0.9em;
+  }
+}
+
+/* For tablets (601px to 1024px) */
+@media (min-width: 601px) and (max-width: 1024px) {
   .wrapper {
-    padding-top: 10%; 
+    gap: 30px; /* Adjust gap between cards */
+    padding-top: 12%;
   }
 
-  .apply-button{
-    padding: 0px;
-    height: 60%;
-    font-size: 10px;
-    width: 30%;
+  .card {
+    width: 60%; /* Cards occupy more space */
+    height: auto;
   }
 
-  .heading{
-    height: 4rem;
+  
+  button {
+    font-size: 1em; /* Standard button font size */
+    width: 8rem; /* Adjust button width */
+  }
+}
+
+/* For larger screens (above 1024px) */
+@media (min-width: 1025px) {
+  .wrapper {
+    gap: 40px;
+    padding-top: 15%;
   }
 
+  .card {
+    width: 20rem;
+    height: 25rem;
   }
 
-   
+  
+  button {
+    font-size: 1.1em; /* Slightly larger button text for desktops */
+    width: 7rem;
+  }
+}
+
+  
+  

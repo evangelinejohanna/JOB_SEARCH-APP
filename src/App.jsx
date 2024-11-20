@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -33,15 +33,18 @@ function App() {
   };
 
   const closemodal = () => {
-    setopenNextform({ Jobform: false, Form_2: false });
+    setopenNextform({ ...setopenNextform, Jobform: false, Form_2: false });
     document.body.style.overflow = "";
   };
 
+  const addNewCard = (newCard) => {
+    console.log("New card added:", newCard);
+  };
   return (
     <>
       <div>
         <Header openForm1={openForm1} />
-        <DataFetcher />
+        <DataFetcher onAddCard={(newCard) => addNewCard(newCard)} />
       </div>
 
       <div>
@@ -66,6 +69,7 @@ function App() {
               closeForm2={closeForm2}
               openForm1={openForm1}
               inputValues={form1Inputs}
+              onAddCard={(newCard) => addNewCard(newCard)}
             />
           </Modal>
         )}
