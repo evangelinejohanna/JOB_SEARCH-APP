@@ -1,8 +1,1 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The Job Search App allows users to easily manage job listings with full CRUD functionality. It integrates with a REST API for real-time updates. Users can add, edit, and delete job entries through an intuitive interface. The app is fully responsive, ensuring a seamless experience on all devices. It simplifies job tracking and application management.
